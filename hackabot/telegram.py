@@ -39,6 +39,19 @@ def run_bot(token: str):
 
     @bot.message_handler(commands=['start'])
     def _start(message: telebot.types.Message):
+
+        # clear old data
+        user_id = message.from_user.username
+        if user_id in responder.user_coins:
+            del responder.user_coins[user_id]
+
+        if user_id in responder.user_states:
+            del responder.user_states[user_id]
+
+        if user_id in responder.user_questions:
+            del responder.user_questions[user_id]
+
+
         with locks[message.chat.id]:
             _send(message, response='Привет, это ассистент Олег! У меня  появилась новая игра, которая помогает зарабатывать монетки '
                                     '⭐️Они начисляются в копилочку за каждый правильный ответ. Не стесняйтесь спрашивать у меня про ваш статус и баланс. Ну что, поиграем?')
@@ -61,7 +74,7 @@ def run_bot(token: str):
     def _send_response(message: telebot.types.Message):
 
         chat_id = message.chat.id
-        user_id = '{}_{}'.format(message.from_user.username, message.from_user.id) if message.from_user else 0
+        user_id = message.from_user.username if message.from_user else 0
         # parse voice
         if message.content_type == 'voice':
             # parse voice

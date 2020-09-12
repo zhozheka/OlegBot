@@ -21,15 +21,14 @@ def run_bot(token: str):
     locks: DefaultDict[Any, Lock] = collections.defaultdict(threading.Lock)
     bot = telebot.TeleBot(token)
     responder = Responder()
-    print('resp')
     def _send(message: telebot.types.Message, response: str, type_: str='all'):
         if type_ == 'text' or 'all':
             bot.send_message(chat_id=message.chat.id, text=response, parse_mode='html')
 
-            # if type_ == 'all':
-            #     # generate voice here
-            #     fp = text2speach(response)
-            #     bot.send_voice(chat_id=message.chat.id, voice=fp)
+            if type_ == 'all':
+                # generate voice here
+                fp = text2speach(response)
+                bot.send_voice(chat_id=message.chat.id, voice=fp)
 
         elif type_ == 'voice':
             voice_file = urlopen(response)
@@ -41,7 +40,9 @@ def run_bot(token: str):
     @bot.message_handler(commands=['start'])
     def _start(message: telebot.types.Message):
         with locks[message.chat.id]:
-            _send(message, response='Давай сыграем с тобой в игру')
+            _send(message, response='Привет, это ассистент Олег! У меня  появилась новая игра, которая помогает зарабатывать монетки '
+                                    '⭐️Они начисляются в копилочку за каждый правильный ответ. Не стесняйтесь спрашивать у меня про ваш статус и баланс. Ну что, поиграем?')
+
 
     @bot.message_handler(content_types=['voice'])
     def handle_voice(message):
@@ -60,10 +61,8 @@ def run_bot(token: str):
     def _send_response(message: telebot.types.Message):
 
         chat_id = message.chat.id
-        user_id = str(message.from_user.id) if message.from_user else 0
-
+        user_id = '{}_{}'.format(message.from_user.username, message.from_user.id) if message.from_user else 0
         # parse voice
-
         if message.content_type == 'voice':
             # parse voice
             file_info = bot.get_file(message.voice.file_id)
@@ -71,7 +70,7 @@ def run_bot(token: str):
             print('voice_url: {}'.format(voice_url))
 
             text = speach2text(voice_url)
-            _send(message, text, type_='text')
+            #_send(message, text type_='text')
         elif message.content_type == 'text':
             text = message.text
 

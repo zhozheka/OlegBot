@@ -164,6 +164,14 @@ python-versions = ">=3.6"
 version = "1.19.2"
 
 [[package]]
+category = "main"
+description = "Python bindings to the libopus, IETF low-delay audio codec"
+name = "opuslib"
+optional = false
+python-versions = "*"
+version = "3.0.1"
+
+[[package]]
 category = "dev"
 description = "Core utilities for Python packages"
 name = "packaging"
@@ -327,7 +335,7 @@ python-versions = "*"
 version = "0.2.5"
 
 [metadata]
-content-hash = "629998cae9c7adbc86286ef7aae9a180bf718b48cafe223b38d80d2c0adaca3a"
+content-hash = "9e0110f092a6db3ffb46783365757b43e5cfecd88d1d2897171efa84f31c6474"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -419,6 +427,9 @@ numpy = [
     {file = "numpy-1.19.2-cp38-cp38-win_amd64.whl", hash = "sha256:1669ec8e42f169ff715a904c9b2105b6640f3f2a4c4c2cb4920ae8b2785dac65"},
     {file = "numpy-1.19.2-pp36-pypy36_pp73-manylinux2010_x86_64.whl", hash = "sha256:0bfd85053d1e9f60234f28f63d4a5147ada7f432943c113a11afcf3e65d9d4c8"},
     {file = "numpy-1.19.2.zip", hash = "sha256:0d310730e1e793527065ad7dde736197b705d0e4c9999775f212b03c44a8484c"},
+]
+opuslib = [
+    {file = "opuslib-3.0.1.tar.gz", hash = "sha256:2cb045e5b03e7fc50dfefe431e3404dddddbd8f5961c10c51e32dfb69a044c97"},
 ]
 packaging = [
     {file = "packaging-20.4-py2.py3-none-any.whl", hash = "sha256:998416ba6962ae7fbd6596850b80e17859a5753ba17c32284f67bfff33784181"},

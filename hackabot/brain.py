@@ -34,18 +34,17 @@ class Responder:
                     else:
                         raise ValueError
                 else:
+                    self.user_states[user_id] = 'CHITCHAT'
                     return 'Вопросы на сегодня закончились('
 
-
             elif state == 'CONTINUE_GAME':
-                answer = 'yes' if text.lower() in ['да', 'давай', 'продолжаем'] else 'no'
+                answer = 'yes' if text.lower() in ['да', 'давай', 'продолж', 'дальше'] else 'no'
                 if answer == 'yes':
                     self.user_states[user_id] = 'NEXT_QUESTION'
                     continue
                 else:
                     self.user_states[user_id] = 'CHITCHAT'
                     return 'Ну и ладно'
-
 
             elif state.startswith('QUEST_'):
                 question_id = int(state.split('_')[1])
@@ -76,12 +75,12 @@ class Responder:
 
             if state == 'GET_STAT':
                 n_coins = self.user_coins[user_id]
-                stat = '{} У вас {} монеток. Текущий кровень - "Олежек". До следующего уроня "Олег" осталось заработать {} монет'.format('⭐️'*n_coins, n_coins, self.level_up-n_coins)
+                stat = '{} У вас {} монеток. Текущий кровень - "Олеженька". До следующего уроня "Олег" осталось заработать {} монет'.format('⭐️'*n_coins, n_coins, self.level_up-n_coins)
                 self.user_states[user_id] = 'CHITCHAT'
                 return stat
 
             elif state == 'CHITCHAT':
-                stat_keys = ['стат', 'уровен', 'монетк', 'бонус']
+                stat_keys = ['статист', 'уровен', 'монетк', 'бонус', 'баланс', 'уровен', 'статус']
                 game_keys = ['игра', 'вопрос']
 
                 if any([key in text.lower() for key in stat_keys]):

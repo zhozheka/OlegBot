@@ -41,10 +41,10 @@ def text2speach(text, tmp_dir='./tmp'):
         request = build_request(text)
         metadata = authorization_metadata(api_key, secret_key, "tinkoff.cloud.tts")
         responses = stub.StreamingSynthesize(request, metadata=metadata)
-        for key, value in responses.initial_metadata():
-            if key == "x-audio-num-samples":
-                print("Estimated audio duration is " + str(int(value) / sample_rate) + " seconds")
-                break
+        # for key, value in responses.initial_metadata():
+        #     if key == "x-audio-num-samples":
+        #         #print("Estimated audio duration is " + str(int(value) / sample_rate) + " seconds")
+        #         break
         for stream_response in responses:
             f.writeframes(stream_response.audio_chunk)
 

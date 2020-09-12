@@ -38,7 +38,12 @@ class Responder:
                     return 'Вопросы на сегодня закончились('
 
             elif state == 'CONTINUE_GAME':
-                answer = 'yes' if text.lower() in ['да', 'давай', 'продолж', 'дальше'] else 'no'
+
+                if any([key in text.lower() for key in ['да', 'давай', 'продолж', 'дальш']]):
+                    answer = 'yes'
+                else:
+                    answer = 'no'
+
                 if answer == 'yes':
                     self.user_states[user_id] = 'NEXT_QUESTION'
                     continue
